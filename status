@@ -1,0 +1,26 @@
+#!/bin/bash
+export MEDIA_ID=$( cat media-post.json | jq -r .mediaId )
+export STATUS=$( cat media-post.json | jq -r .status )
+export TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDJlNmFjNy0xZjMxLTQ0MzgtYTdhOS1iZGY2NDFmMWE0NTEiLCJ1c2VySWQiOiJhdXRoMHw1OGFlMmM1NjRhODRiMjA3NmYyZWZkNWQiLCJvcmdhbml6YXRpb25JZCI6IjIyNThmYjdjLTAwYmEtNzExYy00MjNiLWI2Nzg0OWM4OTYyMyIsImVwaGVtZXJhbCI6ZmFsc2UsImlhdCI6MTQ4Nzk3OTY1ODY2MiwiaXNzIjoiaHR0cDovL3d3dy52b2ljZWJhc2UuY29tIn0.IeAUz9JDBk5B2zYjFyONVODPfrP8_4zHTgpmh-TEDxM
+
+while [[ ${STATUS} != 'finished' && ${STATUS} != 'failed' ]]; do
+  sleep 1
+  STATUS=$(
+    curl -s https://apis.voicebase.com/v2-beta/media/${MEDIA_ID}/progress \
+      --header "Authorization: Bearer ${TOKEN}" \
+      | jq -r .status
+  )
+  echo "Got status: ${STATUS} for mediaId: ${MEDIA_ID} on $( date )"
+done
+
+curl -s https://apis.voicebase.com/v2-beta/media/${MEDIA_ID}/transcripts/latest \
+  --header 'Accept: text/plain' > output.txt \
+  --header "Authorization: Bearer ${TOKEN}"
+
+# curl -s https://apis.voicebase.com/v2-beta/media/${MEDIA_ID}/topics/latest \
+#   --header 'Accept: text/plain' > topics.txt \
+#   --header "Authorization: Bearer ${TOKEN}"
+
+
+curl https://apis.voicebase.com/v2-beta/definitions/predictions/models \
+     --header "Authorization: Bearer ${TOKEN}"

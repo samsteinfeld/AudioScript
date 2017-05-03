@@ -1,0 +1,8 @@
+#!/bin/bash
+file="$1"
+export TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDJlNmFjNy0xZjMxLTQ0MzgtYTdhOS1iZGY2NDFmMWE0NTEiLCJ1c2VySWQiOiJhdXRoMHw1OGFlMmM1NjRhODRiMjA3NmYyZWZkNWQiLCJvcmdhbml6YXRpb25JZCI6IjIyNThmYjdjLTAwYmEtNzExYy00MjNiLWI2Nzg0OWM4OTYyMyIsImVwaGVtZXJhbCI6ZmFsc2UsImlhdCI6MTQ4Nzk3OTY1ODY2MiwiaXNzIjoiaHR0cDovL3d3dy52b2ljZWJhc2UuY29tIn0.IeAUz9JDBk5B2zYjFyONVODPfrP8_4zHTgpmh-TEDxM
+curl https://apis.voicebase.com/v2-beta/media \
+	--form media=@$file \
+  	--header "Authorization: Bearer ${TOKEN:?'(hint: insert your token after export TOKEN=)'}" \
+	| tee media-post.json \
+  	| jq .
