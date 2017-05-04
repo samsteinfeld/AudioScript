@@ -5,7 +5,7 @@ Created by Sam Steinfeld and Jesse Aronson
 Notes:
   -User must be signed up for a VoiceBase account and request access to their API (both are free)
   -Python 3 must be installed
-  -The python libraries PyDictioanry and TextBloc need to be manually installed via pip
+  -The python libraries PyDictioanry and TextBlob need to be manually installed via pip
 
 Files:
   -audioscript.py: categorizes data from transcribed text file
