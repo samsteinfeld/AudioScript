@@ -1,6 +1,6 @@
 # AudioScript
 
-Created by Sam Steinfeld and Jesse Aronson
+Created by Sam Steinfeld and Jesse Aronson to aid psychology professor in both the automation of transcribing audio to text as well as finding recurring topics with transcribed text.
 
 Notes:
   -User must be signed up for a VoiceBase account and request access to their API (both are free)
